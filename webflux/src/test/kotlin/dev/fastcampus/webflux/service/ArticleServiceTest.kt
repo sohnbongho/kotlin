@@ -1,7 +1,7 @@
-package dev.fastcampus.mvc.service
+package dev.fastcampus.webflux.service
 
-import dev.fastcampus.mvc.repository.ArticleRepository
-import dev.fastcampus.mvc.service.exception.NotFoundException
+import dev.fastcampus.webflux.repository.ArticleRepository
+import dev.fastcampus.webflux.service.exception.NotFoundException
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.junit.jupiter.api.Test
 

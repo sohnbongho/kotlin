@@ -1,9 +1,9 @@
 package dev.fastcampus.mvc.controller
 
-import dev.fastcampus.mvc.model.Article
-import dev.fastcampus.mvc.service.ArticleService
-import dev.fastcampus.mvc.service.ReqCreate
-import dev.fastcampus.mvc.service.ReqUpdate
+import dev.fastcampus.webflux.model.Article
+import dev.fastcampus.webflux.service.ArticleService
+import dev.fastcampus.webflux.service.ReqCreate
+import dev.fastcampus.webflux.service.ReqUpdate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
