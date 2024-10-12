@@ -6,10 +6,10 @@ spring:
       enabled: always
   r2dbc:
     url: r2dbc:pool:h2:mem://localhost/sample
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath:script/schema.sql
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath:script/schema.sql
 server:
   shutdown: graceful
   compression:
