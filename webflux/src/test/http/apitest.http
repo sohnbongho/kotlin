@@ -1,0 +1,3 @@
+
+GET {{domain}}/hello
+Content-Type: application/json
