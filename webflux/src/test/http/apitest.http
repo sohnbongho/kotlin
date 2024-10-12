@@ -1,3 +1,8 @@
 ### hello world 예제
-GET {{domain}}/hello
+GET {{domain}}/hello?name=bla&age=10
 Content-Type: application/json
+
+{
+  "name": "bla",
+  "age": 10
+}
