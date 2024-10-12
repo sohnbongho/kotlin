@@ -5,6 +5,7 @@ import dev.fastcampus.webflux.repository.ArticleRepository
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,9 +14,9 @@ import kotlin.test.assertEquals
 
 @SpringBootTest
 class WebfluxApplicationTests (
-	@Autowired
 	private val repository: ArticleRepository,
 ):StringSpec({
+
 	"context load"{
 		val preCnt = repository.count()
 		var creadted = repository.save(Article(
@@ -26,7 +27,8 @@ class WebfluxApplicationTests (
 
 		repository.count() shouldBe preCnt + 1
 
-		//assertEquals(preCnt + 1, repository.count())
-
+		val saved = repository.findById(creadted.id)
+		saved?.createdat shouldNotBe null
+		saved?.updatedat shouldNotBe null
 	}
 })
