@@ -5,7 +5,7 @@ from locust.runners import MasterRunner, WorkerRunner
 class MyTask(TaskSet):
     @task
     def get(self):
-        self.client.get(f'/article/1')
+        self.client.get(f'/article/499')
     # @task
     # def getAll(self):
     #     self.client.get(f'/article/all?title=matched')

@@ -24,8 +24,8 @@ server:
     include-exception: true
 logging:
   level:
-    "org.springframework.r2dbc.core": debug
-    "org.springframework.r2dbc.connection.init.ScriptUtils": debug
+    "org.springframework.r2dbc.core": off
+    "org.springframework.r2dbc.connection.init.ScriptUtils": off
     "dev.fastcampus.webflux": debug
     "io.r2dbc.h2.H2Connection": debug
 ---
