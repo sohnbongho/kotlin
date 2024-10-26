@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.server.reactive.ServerHttpRequest
 import org.springframework.web.reactive.function.server.ServerRequest
 
-val logger = KotlinLogging.logger {}
+private val logger = KotlinLogging.logger {}
 
 @Configuration
 class ErrorHandler {

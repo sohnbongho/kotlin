@@ -17,6 +17,8 @@ import org.slf4j.MDC
 import org.springframework.core.KotlinDetector
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.core.publisher.Mono
@@ -27,7 +29,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.coroutines.resume
 
-var logger = KotlinLogging.logger{}
+private var logger = KotlinLogging.logger{}
 
 @RestController
 class AdvancedController {
@@ -58,7 +60,21 @@ class AdvancedController {
         logger.debug{"hello error"}
         throw RuntimeException("this is test error!!")
     }
+
+    @PostMapping("/test/requestlog")
+    suspend fun requestlog(@RequestBody request: ReqLog){
+        logger.info { "request: $request" }
+    }
+
+
 }
+data class ReqLog(
+    val id : String?,
+    val age: Long?
+
+)
+
+
 public fun<T> monoA(
     context: CoroutineContext = MDCContext(),
     block: suspend CoroutineScope.() -> T?
