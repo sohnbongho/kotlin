@@ -48,6 +48,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation("io.micrometer:context-propagation:1.1.1")
 
+	// 4. rate limiter
+	implementation("io.github.resilience4j:resilience4j-spring-boot3:2.2.0")
+	implementation("io.github.resilience4j:resilience4j-reactor:2.2.0")
 }
 
 kotlin {
