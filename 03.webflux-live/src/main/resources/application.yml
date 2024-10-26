@@ -31,6 +31,8 @@ logging:
     "org.springframework.r2dbc.connection.init.ScriptUtils": off
     "dev.fastcampus.webflux": debug
     "io.r2dbc.h2.H2Connection": debug
+    "org.springframework.boot.autoconfigure.web.reactive.error": off
+    "org.springframework.web.HttpLogging": off
 ---
 spring:
   config:

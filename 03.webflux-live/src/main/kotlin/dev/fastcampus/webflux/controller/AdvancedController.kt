@@ -18,6 +18,7 @@ import org.springframework.core.KotlinDetector
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.core.publisher.Mono
 import reactor.core.scheduler.Scheduler
 import reactor.core.scheduler.Schedulers
@@ -46,6 +47,16 @@ class AdvancedController {
         }.awaitSingleOrNull()
 
         logger.debug{"end"}
+    }
+
+    @GetMapping("/test/error")
+    suspend fun error(servletRequest: ServerRequest){
+
+        val request = servletRequest?.exchange()?.request
+        logger.debug{"request id : ${request?.id}"}
+
+        logger.debug{"hello error"}
+        throw RuntimeException("this is test error!!")
     }
 }
 public fun<T> monoA(

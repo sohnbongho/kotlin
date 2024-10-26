@@ -9,33 +9,35 @@ import org.springframework.web.server.WebFilter
 import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Hooks
 import reactor.core.publisher.Mono
-import java.util.*
+import java.util.UUID
 
-private const val KEY_TXID = "txid"
+const val KEY_TXID = "txid"
 
 @Component
 @Order(1)
-class TxidFilter : WebFilter {
+class TxidFilter: WebFilter {
 
-    init{
+    init {
         Hooks.enableAutomaticContextPropagation()
         ContextRegistry.getInstance().registerThreadLocalAccessor(
             KEY_TXID,
             {MDC.get(KEY_TXID)},
-            {value -> MDC.put(KEY_TXID, value)},
+            {vaule -> MDC.put(KEY_TXID, vaule)},
             {MDC.remove(KEY_TXID)}
-
         )
+
     }
 
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
 
-        var uuid = exchange.request.headers["x-txid"]?.firstOrNull() ?: "${UUID.randomUUID()}"
+        val uuid = exchange.request.headers["x-txid"]?.firstOrNull() ?: "${UUID.randomUUID()}"
 
         MDC.put(KEY_TXID, uuid)
-        return chain.filter(exchange).contextWrite{ ctx ->
+        return chain.filter(exchange).contextWrite { ctx ->
             ctx.put(KEY_TXID, uuid)
-        }.doFinally{
+        }.doOnError {
+            exchange.request.txid = uuid
+        }.doFinally {
             MDC.remove(KEY_TXID)
         }
     }

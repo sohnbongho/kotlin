@@ -2,3 +2,8 @@
 GET {{domain}}/test/txid
 Content-Type: application/json
 x-txid: test1234
+
+### get
+GET {{domain}}/test/error
+Content-Type: application/json
+x-txid: test1234
