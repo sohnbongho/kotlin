@@ -63,7 +63,9 @@ class AdvancedController {
 
     @PostMapping("/test/requestlog")
     suspend fun requestlog(@RequestBody request: ReqLog){
-        logger.info { "request: $request" }
+        logger.info { "end ~~ " }
+
+
     }
 
 

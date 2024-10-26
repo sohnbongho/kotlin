@@ -9,8 +9,9 @@ Content-Type: application/json
 x-txid: test1234
 
 ### request log
-POST {{domain}}/test/requestlog
+POST {{domain}}/test/requestlog?key=babamba
 Content-Type: application/json
+x-user-header: AAAA
 
 {
   "id" : "webflux",

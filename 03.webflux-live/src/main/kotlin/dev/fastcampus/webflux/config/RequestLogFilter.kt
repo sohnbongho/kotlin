@@ -22,6 +22,16 @@ class RequestLogFilter :WebFilter{
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         val request = exchange.request;
 
+        logger.info{"uri: [${request.method}] [${request.path}] [${request.remoteAddress}]"}
+
+        if(request.headers.isNotEmpty()){
+            logger.info{"headers: ${request.headers}"}
+        }
+
+        if(request.queryParams.isNotEmpty()){
+            logger.info{"query: ${request.queryParams}"}
+        }
+
         val decorator = object : ServerHttpRequestDecorator(request){
 
             override fun getBody(): Flux<DataBuffer> {
