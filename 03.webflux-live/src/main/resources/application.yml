@@ -33,6 +33,15 @@ logging:
     "io.r2dbc.h2.H2Connection": debug
     "org.springframework.boot.autoconfigure.web.reactive.error": off
     "org.springframework.web.HttpLogging": off
+resilience4j:
+  circuitbreaker:
+    instances:
+      test-circuit:
+        sliding-window-size: 10
+        failure-rate-threshold: 30
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+
 ---
 spring:
   config:

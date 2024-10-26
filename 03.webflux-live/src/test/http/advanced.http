@@ -17,3 +17,11 @@ x-user-header: AAAA
   "id" : "webflux",
   "age": 30
 }
+
+### circuit breaker(Success)
+GET {{domain}}/test/circuit
+Content-Type: application/json
+
+### circuit breaker(fail)
+GET {{domain}}/test/circuit?flag=true
+Content-Type: application/json
