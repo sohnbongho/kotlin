@@ -1,0 +1,4 @@
+### get
+GET {{domain}}/test/txid
+Content-Type: application/json
+x-txid: test1234

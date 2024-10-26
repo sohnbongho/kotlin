@@ -6,4 +6,4 @@ services:
     ports: #host -> contianer
       - "8080:8080"
     environment:
-      - spring.r2dbc.url=r2dbc:pool:mariadb://192.168.129.188:3306/sample
+      - spring.r2dbc.url=r2dbc:pool:mariadb://192.168.0.67:3306/sample

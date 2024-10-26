@@ -1,0 +1,66 @@
+package dev.fastcampus.webflux.controller
+
+import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.slf4j.MDCContext
+import kotlinx.coroutines.withContext
+import org.aspectj.lang.ProceedingJoinPoint
+import org.aspectj.lang.annotation.Around
+import org.aspectj.lang.annotation.Aspect
+import org.aspectj.lang.reflect.MethodSignature
+import org.springframework.core.KotlinDetector
+import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.resume
+
+var logger = KotlinLogging.logger{}
+
+@RestController
+class AdvancedController {
+
+    @GetMapping("/test/txid")
+    fun txtid(){
+
+        logger.debug{"hello txid"}
+
+        //delay(100)
+
+        logger.debug{"end"}
+    }
+}
+
+@Aspect
+@Component
+class AdvancedAspectConfig {
+
+    @Around("""
+       @annotation(org.springframework.web.bind.annotation.RequestMapping) 
+       @annotation(org.springframework.web.bind.annotation.GetMapping) 
+       @annotation(org.springframework.web.bind.annotation.PostMapping)  
+       @annotation(org.springframework.web.bind.annotation.PutMapping) 
+       @annotation(org.springframework.web.bind.annotation.DeleteMapping) || 
+       @annotation(org.springframework.web.bind.annotation.PatchMapping)
+    """)
+    fun bindMdcContext(jp: ProceedingJoinPoint): Any? {
+
+        var method = (jp.signature as MethodSignature).method
+
+        return if(KotlinDetector.isSuspendingFunction(method)){
+            val continuation = jp.args.last() as Continuation<Any>
+
+            val newContext = continuation.context + MDCContext()
+            val newContinuation = Continuation<Any>(newContext) { continuation.resume(it)}
+
+            val jpArg = jp.args.dropLast(1) + newContinuation
+
+            jp.proceed(jpArg.toTypedArray())
+        }
+        else{
+            jp.proceed()
+        }
+    }
+
+}
